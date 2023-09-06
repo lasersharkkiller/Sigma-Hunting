@@ -1,0 +1,39 @@
+title: CertUtil Abuse Process and Common Parameters
+id:
+status: experimental
+description: Looks for CertUtil abuse with a certutil process and common parameters use by red teamers
+references:
+   → https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certutil 
+   → https://www.varonis.com/blog/the-malware-hiding-in-your-windows-system32-folder-part-iii-certutil-and-alternate-data-streams 
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.initial_access
+    - attack.defense_evasion
+    - certutil
+    - attack.command_and_control
+logsource:
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - 'certutil.exe'
+     selection2:
+        CommandLine|contains|any:
+        	- urlcache
+        	- encode
+        	- decode
+        	- decodehex
+        	- hashfile
+     selection3:
+        ScriptBlockText|contains:
+        	- urlcache
+        	- encode
+        	- decode
+        	- decodehex
+        	- hashfile
+    condition: selection and (selection2 or selection3)
+falsepositives:
+    - 
+level: medium
