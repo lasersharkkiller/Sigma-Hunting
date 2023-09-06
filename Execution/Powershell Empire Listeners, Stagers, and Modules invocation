@@ -1,0 +1,35 @@
+title: “Powershell Empire Listeners, Stagers, and Modules invocation”
+id: 
+description: "Common Commands used by PowerShell Empire baselined against a prod environment"
+references:
+-  https://hackmag.com/security/powershell-empire/
+author: Cyber Panda
+date: 2023/01/15
+tags:
+- attack.initial_access
+- attack.defense_evasion
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+     selection:
+        CommandLine|contains:
+        	- ‘uselistener’
+       		- ‘usestager’
+       		- ‘usemodule’
+     selection2:
+        ScriptBlockText|contains:
+        	- ‘uselistener’
+       		- ‘usestager’
+       		- ‘usemodule’
+       selection_filter
+        Image|contains:
+        	- ‘EvoMouseListener’
+  condition: (selection or selection2) AND NOT selection_filter
+fields:
+- ""
+falsepositives:
+- None known
+level: "medium"
