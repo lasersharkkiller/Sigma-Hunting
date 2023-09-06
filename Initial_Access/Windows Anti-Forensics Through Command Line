@@ -1,0 +1,50 @@
+Windows Anti-Forensics Through Command Line"
+id: 
+description: "Attackers often try to cover their tracks by deleting logs. One way is through WMI commands. Another is to disable logging. Attackers can try to disable the USN journal as an anti-forensic technique. "
+references:
+- https://attack.mitre.org/techniques/T1070/001/
+- https://dfirtnt.wordpress.com/2020/11/25/detecting-ransomware-precursors/
+- https://superuser.com/questions/979888/disable-windows-powershell-event-logging
+- https://superuser.com/questions/1516725/how-to-disable-windows-10-system-log
+author: Cyber Panda
+date: 2023/01/15
+tags:
+- attack.initial_access
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+    - wevtutil cl
+    - wevtutil.exe cl
+    - wevtutil.exe sl Security
+    - fsutil usn delete
+    - Clear-EventLog
+    - auditpol /set
+    - auditpol /clear
+    - auditpol /remove
+  selection2:    
+    ScriptBlockText|contains:
+    - wevtutil cl
+    - wevtutil.exe cl
+    - wevtutil.exe sl Security
+    - fsutil usn delete
+    - Clear-EventLog
+    - auditpol /set
+    - auditpol /clear
+    - auditpol /remove
+  selection3:
+    CommandLine|contains:
+    - Nexthink
+   selection4:
+    ScriptBlockText|contains:
+    - ‘Microsoft Corporation’
+  condition: (selection or selection2) and not (selection3 or selection4)
+fields:
+- ""
+falsepositives:
+- Nexthink
+- Microsoft script
+level: "medium"
