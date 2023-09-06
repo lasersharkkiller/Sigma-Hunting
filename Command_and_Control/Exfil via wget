@@ -1,0 +1,27 @@
+title: "Exfil Via wget"
+id: 
+description: "Exfil Via wget"
+references:
+- https://stackoverflow.com/questions/17699666/post-request-with-wget
+author: Cyber Panda
+date: 2023/04/07
+tags:
+- attack.command_and_control
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+    - ‘wget’
+  selection2:
+    CommandLine|contains:
+    - ‘--post-file’
+    - ‘--post-data’
+  condition: selection and selection2
+fields:
+- ""
+falsepositives:
+- No
+level: "high"
