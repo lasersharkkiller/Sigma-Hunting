@@ -1,0 +1,24 @@
+title: "Set-Item Use to Disable AMSI"
+id: 
+description: "Set-Item Use to Disable AMSI"
+references:
+- https://rootrecipe.medium.com/advanced-powerup-ps1-usage-ad0f6d713a9f
+author: Cyber Panda
+date: 2023/04/06
+tags:
+- attack.privilege_escalation
+- attack.defense_evasion
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+    - ‘Set-Item’
+  condition: selection
+fields:
+- ""
+falsepositives:
+- I would think there are but didn't see any
+level: "high"
