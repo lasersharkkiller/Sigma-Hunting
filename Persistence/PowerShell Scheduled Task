@@ -1,0 +1,29 @@
+title: "Powershell Scheduled Task"
+id: 
+description: "Powershell Scheduled Task"
+references:
+- https://www.makeuseof.com/windows-powershell-scheduled-task/
+author: Cyber Panda
+date: 2023/04/05
+tags:
+- attack.persistence
+- attack.privilege_escalation
+- attack.command_and_control
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+    - ‘New-ScheduledTask’
+  selection2:
+    CommandLine|contains:
+    - ‘npcap’
+  condition: selection and not selection2
+fields:
+- ""
+falsepositives:
+- Google NearbyShare
+- npcap Watchdog / Wireshark
+level: "high"
