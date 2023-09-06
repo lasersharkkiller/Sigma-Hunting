@@ -1,0 +1,32 @@
+title: "LSASS Suspicious Children"
+id: 
+description: "LSASS Suspicious Children"
+references:
+- https://redcanary.com/threat-detection-report/techniques/lsass-memory/
+author: Cyber Panda
+date: 2023/04/03
+tags:
+- attack.privilege_escalation
+- attack.credential_access
+- attack.collection
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|contains:
+    - ‘taskmgr.exe’
+    - ‘powershell.exe’
+    - ‘rundll32.exe’
+    - ‘procdump.exe’
+    - ‘procexp.exe’
+   selection2:
+    ParentImage|contains:
+    - ‘lsass.exe’
+  condition: selection and selection2
+fields:
+- ""
+falsepositives:
+- Administrators or Help Desk troubleshooting
+level: "high"
