@@ -1,0 +1,26 @@
+title: “GUI Input Capture”
+id:
+status: experimental
+description: Focusing here on detecting the Powershell UI.PromptForCredential and GetNetworkCredential().Password in CmdScript or CmdLine.
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.credential_access
+logsource:
+    category: process_creation
+detection:
+    selection:
+        CommandLine|contains|all:
+        	- ‘.UI.PromptForCredential('
+        	- ‘.GetNetworkCredential().Password’
+     selection2:
+        ScriptBlockText|contains|all:
+        	- ‘.UI.PromptForCredential('
+        	- ‘.GetNetworkCredential().Password’
+    condition: selection or selection2
+falsepositives:
+    - 
+level: medium
