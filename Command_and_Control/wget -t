@@ -1,0 +1,24 @@
+title: “wget -t”
+id:
+status: experimental
+description: “Reference CISA #10413062; The dll uses wget -t 1 to limit attempts to download only once, oddly wget -t never triggers in a 90 day baseline”
+references: 
+   → CISA #10413062
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.command_and_control
+logsource:
+    category: process_creation
+detection:
+     selection:
+        CommandLine|contains|all:
+        	- 'wget -t'
+     selection2:
+        ScriptBlockText|contains|all:
+        	- 'wget -t'
+    condition: selection or selection2
+falsepositives:
+    - 
+level: medium
