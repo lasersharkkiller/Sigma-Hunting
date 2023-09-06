@@ -1,0 +1,32 @@
+title: "CertUtil Enumeration (cainfo)"
+id: 
+description: "GoAnyWhere CertUtil Enumeration"
+references:
+- https://securityintelligence.com/posts/x-force-prevents-zero-day-from-going-anywhere/
+author: Cyber Panda
+date: 2023/04/03
+tags:
+- attack.collection
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+    - ‘certutil’
+   selection2:
+    CommandLine|contains:
+    - ‘cainfo’
+	selection3:    
+    ScriptBlockText|contains:
+    - ‘certutil’
+   selection4:
+    ScriptBlockText|contains:
+    - ‘cainfo’
+  condition: (selection and selection2) or (selection3 and selection4)
+fields:
+- ""
+falsepositives:
+- 
+level: "medium"
