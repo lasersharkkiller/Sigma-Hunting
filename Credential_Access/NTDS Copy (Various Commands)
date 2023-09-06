@@ -1,0 +1,38 @@
+title: “NTDS Copy (Various Commands)”
+id:
+status: experimental
+description: We won't bother detecting VSS copies being created, rather detecting credential file copies. NTDS.dit or SYSTEM whether a VSS copy or not.
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.credential_access
+logsource:
+    category: process_creation
+detection:
+    selection:
+        CommandLine|contains:
+        	- ‘copy’
+    selection2:
+        CommandLine|contains:
+        	- ‘\\Windows\\NTDS\\NTDS.dit’
+        	- ‘\\Windows\\System32\\config\\SYSTEM'
+    selection3:
+        CommandLine|contains:
+        	- ‘save HKLM\SYSTEM'
+     selection4:
+        ScriptBlockText|contains:
+          	- ‘copy’
+     selection5:
+        ScriptBlockText|contains:
+        	- ‘\\Windows\\NTDS\\NTDS.dit’
+        	- ‘\\Windows\\System32\\config\\SYSTEM'
+     selection6:
+        ScriptBlockText|contains:
+        	- ‘save HKLM\SYSTEM'
+    condition: (selection and selection2) or selection3 or (selection3 and selection4) or selection6
+falsepositives:
+    - 
+level: medium
