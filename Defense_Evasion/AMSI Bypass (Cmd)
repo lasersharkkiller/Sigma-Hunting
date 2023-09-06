@@ -1,0 +1,26 @@
+title: AMSI Bypass (Cmd)
+id:
+status: experimental
+description: Atomic #9 AND #10 - Disable Sysmon
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.defense_evasion
+logsource:
+    category: process_creation
+detection:
+    selection:
+        CommandLine|contains|any:
+        	- ‘[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static' 
+            - ‘[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)'
+     selection2:
+        ScriptBlockText|contains:
+        	- ‘[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static' 
+            - ‘[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)'
+    condition: selection or selection2
+falsepositives:
+    - 
+level: medium
