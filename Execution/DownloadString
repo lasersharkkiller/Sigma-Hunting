@@ -1,0 +1,30 @@
+title: DownloadString
+id:
+status: experimental
+description: Alot of processes use DownloadFile but not so much Downloadstring
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.initial_access
+    - certutil
+logsource:
+    category: process_creation
+detection:
+     selection:
+        CommandLine|contains:
+        	- DownloadString
+     selection2:
+        ScriptBlockText|contains:
+        	- DownloadString
+      selection3:
+      	CommandLine|contains:
+      		- chocolatey
+      ScriptBlockText|contains:
+        	- chocolatey      
+    condition: (selection OR selection2) AND NOT selection3
+falsepositives:
+    - chocolatey
+level: medium
