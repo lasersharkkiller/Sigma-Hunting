@@ -1,0 +1,30 @@
+title: "Transport Agent"
+id: 
+description: “Detection of Powershell TransportAgent Cmdlets being used to setup an Exchange Transport Agent.”
+references:
+- keyboardcrunch
+author: Cyber Panda
+date: 2023/01/15
+tags:
+- attack.persistence
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+    selection:
+     CommandLine|contains|all:  
+      - ‘Install-TransportAgent'
+      - ‘Enable-TransportAgent’
+      - 'Get-TransportAgent'
+    selection2:
+     ScriptBlockText|contains|all:  
+      - ‘Install-TransportAgent'
+      - ‘Enable-TransportAgent’
+      - 'Get-TransportAgent'
+  condition: selection or selection2
+fields:
+- ""
+falsepositives:
+- 
+level: "medium"
