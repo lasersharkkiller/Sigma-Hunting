@@ -1,0 +1,40 @@
+title: "Phishing File Rename"
+id: 
+description: "Attackers often phish with .iso .img .rar .lnk and office documents"
+references:
+- https://www.darkreading.com/endpoint/post-macro-world-container-files-distribute-malware-replacement
+author: Cyber Panda
+date: 2023/01/21
+tags:
+- attack.initial_access
+- attack.execution
+status: "experimental"
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    OriginalFilename|endswith: 
+    - ‘.lnk’
+    - ‘.iso’
+    - ‘.img’
+    - ‘.rar’
+    - ‘.doc’
+    - ‘.docx'
+    - ‘.xls’
+    - ‘.xlsx’
+    - ‘.ppt’
+    - ‘.pptx’
+    Image|contains:
+    - ‘outlook’
+    selection2:
+     TargetFileName|endswith: 
+    - ‘.iso’
+    - ‘.img’
+    - ‘.rar’
+  condition: selection and selection2
+fields:
+- ""
+falsepositives:
+- None known
+level: "medium"
