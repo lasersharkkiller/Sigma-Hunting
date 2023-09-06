@@ -1,0 +1,26 @@
+title: “Echo with Obfuscation”
+id:
+status: experimental
+description: 
+references:
+   → https://www.bleepingcomputer.com/news/security/winnti-hackers-split-cobalt-strike-into-154-pieces-to-evade-detection/
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.command_and_control
+logsource:
+    category: process_creation
+detection:
+     selection:
+        CommandLine|contains|all:
+        	- “echo”
+        	- “AAAAAAAA”
+     selection2:
+        ScriptBlockText|contains|all:
+        	- “echo”
+        	- “AAAAAAAA”
+    condition: selection or selection2
+falsepositives:
+    - 
+level: medium
