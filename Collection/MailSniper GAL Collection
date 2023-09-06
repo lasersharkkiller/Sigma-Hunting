@@ -1,0 +1,23 @@
+title: "MailSniper GAL Collection"
+id: 
+description: "MailSniper GAL Collection"
+references:
+- https://attack.mitre.org/software/S0413/
+author: Cyber Panda
+date: 2023/04/06
+tags:
+- attack.collection
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+    - ‘Get-GlobalAddressList’
+  condition: selection
+fields:
+- ""
+falsepositives:
+- No
+level: "high"
