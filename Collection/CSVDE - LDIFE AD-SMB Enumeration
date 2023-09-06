@@ -1,0 +1,26 @@
+title: "CSVDE - LDIFE AD/SMB Enumeration"
+id: 
+description: "CSVDE - LDIFE AD/SMB Enumeration"
+references:
+- https://securityintelligence.com/posts/x-force-prevents-zero-day-from-going-anywhere/
+author: Cyber Panda
+date: 2023/04/03
+tags:
+- attack.collection
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|contains:
+    - ‘csvde.exe'
+   selection2:
+    Image|contains:
+    - ‘ldifde.exe’
+  condition: selection or selection2
+fields:
+- ""
+falsepositives:
+- Administrators
+level: "high"
