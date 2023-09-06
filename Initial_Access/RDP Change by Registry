@@ -1,0 +1,24 @@
+title: RDP Change by Registry
+id:
+status: experimental
+description: Detects enabling of Guest account, adding Guest account to groups, as well as changing of Deny/Allow of Terminal Server connections through Registry changes.
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.initial_access
+    - certutil
+logsource:
+    category: registry_event
+detection:  
+  selection_registry_1:
+    - TargetObject|contains: 'Terminal Server\AllowTSConnections'
+    - TargetObject|contains: 'Terminal Server\DenyTSConnections'
+  selection_registry_2:
+    TargetObject|contains: 'System\CurrentControlSet\services\windefe' #See article for full list of registry entries
+  condition: 1 of selection_registry_*
+falsepositives:
+    - 
+level: medium
