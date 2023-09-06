@@ -1,0 +1,27 @@
+title: “RDP Hijacking”
+id:
+status: experimental
+description: Detects RDS and RemoteApp session redirections for lateral movement.
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.lateral_movement
+logsource:
+    category: process_creation
+detection:
+  selection:
+    Image|contains:
+    - ‘tscon.exe’
+    selection2:
+        CommandLine|contains:
+        	- ‘/dest:'
+     selection3:
+        ScriptBlockText|contains:
+        	- ‘/dest:'
+    condition: selection and (selection2 or selection3)
+falsepositives:
+    - 
+level: medium
