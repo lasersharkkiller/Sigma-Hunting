@@ -1,0 +1,27 @@
+title: Compile After Discovery
+id:
+status: experimental
+description: Both Atomic tests for this technique leverage csc.exe for compilation of code. The below will detect specific compilation of executables as well as dynamic compilation through detection of csc.exe creating executable files (both dll and exe). Filter noise from later portion of query using SrcProcParentName Not In (). *Note I could not easily baseline the second part of the query, it might be worth revisiting
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.defense_evasion
+logsource:
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - 'csc.exe'
+     selection2:
+        CommandLine|contains|any:
+        	- ‘/target:exe’
+     selection3:
+        ScriptBlockText|contains:
+         	- ‘/target:exe’
+    condition: selection and (selection2 or selection3)
+falsepositives:
+    - 
+level: medium
