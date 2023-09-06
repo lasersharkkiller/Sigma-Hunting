@@ -1,0 +1,35 @@
+title: "Remote Management Software Abuse"
+id: 
+description: "Remote Management Software Abuse"
+references:
+- https://www.cisa.gov/uscert/ncas/alerts/aa23-025a
+- https://www.silentpush.com/blog/silent-push-uncovers-a-large-phishing-operation-featuring-amazon-geek-squad-mcafee-microsoft-norton-and-paypal-domains
+author: Cyber Panda
+date: 2023/01/25
+tags:
+- attack.lateral_movement
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|contains:
+    - ‘windesk’
+    - ‘ScreenConnect’
+    - ‘anydesk’
+    - ‘DWRCS’
+    - ‘TeamViewer’
+    - ‘mstsc’
+    - ‘vnc’
+    - ‘LogMeIn’
+    - ‘Zoho’
+    - ‘GotoMyPC’
+    - ‘Chromoting’
+    - ‘GoToAssist’
+  condition: selection
+fields:
+- ""
+falsepositives:
+- None known
+level: "medium"
