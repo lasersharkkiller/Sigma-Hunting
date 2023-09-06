@@ -1,0 +1,31 @@
+title: "Outlook File Type Attacker Techniques"
+id: 
+description: "Outlook File Type .iso .img .rar"
+references:
+- https://www.darkreading.com/endpoint/post-macro-world-container-files-distribute-malware-replacement
+author: Cyber Panda
+date: 2023/01/15
+tags:
+- attack.initial_access
+- attack.execution
+status: "experimental"
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    ParentImage|contains: 
+    - ‘outlook’
+    Image|contains:
+    - ‘outlook’
+    selection2:
+     TargetFileName|endswith: 
+    - ‘.iso’
+    - ‘.img’
+    - ‘.rar’
+  condition: selection and selection2
+fields:
+- ""
+falsepositives:
+- None known
+level: "medium"
