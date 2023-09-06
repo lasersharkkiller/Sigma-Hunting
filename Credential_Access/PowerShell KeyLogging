@@ -1,0 +1,30 @@
+title: "PowerShell KeyLogging"
+id: 
+description: “I wasn't able to get either copy of the Get-Keystrokes.ps1 to work with powershell, but the below should reliably detect invocation by alias or CmdScript line matching.”
+references:
+- keyboardcrunch
+author: Cyber Panda
+date: 2023/04/03
+tags:
+- attack.credential_access
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+        CommandLine|contains:
+        	- ‘Get-Keystrokes'
+        	- ‘user32.dll GetAsyncKeyState'
+        	- ‘[Windows.Forms.Keys][Runtime.InteropServices.Marshal]::ReadInt32('
+     selection2:
+        ScriptBlockText|contains:
+        	- ‘Get-Keystrokes'
+        	- ‘user32.dll GetAsyncKeyState'
+        	- ‘[Windows.Forms.Keys][Runtime.InteropServices.Marshal]::ReadInt32('
+  condition: selection or selection2
+fields:
+- ""
+falsepositives:
+- 
+level: "high"
