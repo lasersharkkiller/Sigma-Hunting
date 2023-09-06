@@ -1,0 +1,26 @@
+title: "PowerShell Exfil Via DNS"
+id: 
+description: "PowerShell Exfil Via DNS"
+references:
+- https://github.com/mantvydasb/Invoke-PowerCloud/blob/master/Invoke-PowerCloud.ps1
+author: Cyber Panda
+date: 2023/04/07
+tags:
+- attack.command_and_control
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+    - ‘New-TXTRecord’
+  selection2:
+    ScriptBlockText|contains:
+    - ‘New-TXTRecord’
+  condition: selection or selection2
+fields:
+- ""
+falsepositives:
+- No
+level: "high"
