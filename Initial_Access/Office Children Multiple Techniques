@@ -1,0 +1,44 @@
+title: "Office Children Multiple Techniques"
+id: 
+description: "Office Children Multiple Techniques"
+references:
+- 
+author: Cyber Panda
+date: 2023/01/15
+tags:
+- attack.initial_access
+- attack.defense_evasion
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ParentImage|contains:
+    - ‘word’
+    - ‘excel’
+    - ‘powerpoint’
+   selection2:
+    Image|contains:
+    - ‘powershell’
+    - ‘cmd’
+    - ‘cscript’
+    - ‘msdt’
+    - ‘wmi’
+    - ‘mshta’
+    - ‘certutil’
+    - ‘bitsadmin’
+    selection_filter:
+     CommandLine|contains:
+    - ‘NoProfile’
+    - ‘ConfigMgrClientHealth.ps1’
+    - ‘GetAdobeEntitlement’
+    - ‘PSVersionTable’
+    - ‘Get-AppxPackage’
+    - ‘169.254.169.254’
+  condition: selection and selection2 and not selection_filter
+fields:
+- ""
+falsepositives:
+- None known
+level: "medium"
