@@ -1,0 +1,26 @@
+title: Microsoft Office Security Feature Disable (Registry)
+id:
+status: experimental
+description: Atomic #17 - Disable Microsoft Office Security Features
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+- attack.defense_evasion
+logsource:
+    category: registry_event
+detection:  
+  selection_registry_1:
+    - ‘Excel\Security’
+    - ‘Excel\Security\ProtectedView’
+  selection_registry_2:
+    - ‘VBAWarnings’
+    - ‘DisableInternetFilesInPV’
+    - ‘DisableUnsafeLocationsInPV’
+    - ‘DisableAttachementsInPV’
+  condition: selection_registry_1 and selection_registry_2
+falsepositives:
+    - 
+level: medium
