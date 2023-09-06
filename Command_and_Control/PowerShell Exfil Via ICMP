@@ -1,0 +1,31 @@
+title: "PowerShell Exfil Via ICMP"
+id: 
+description: "PowerShell Exfil Via ICMP"
+references:
+- https://github.com/api0cradle/Powershell-ICMP/blob/master/Powershell-ICMP-Sender.ps1
+author: Cyber Panda
+date: 2023/04/07
+tags:
+- attack.command_and_control
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+    - ‘New-Object System.Net.NetworkInformation.Ping’
+    - ‘DontFragment’
+  selection2:
+    ScriptBlockText|contains:
+    - ‘New-Object System.Net.NetworkInformation.Ping’
+    - ‘DontFragment’
+    selection3:
+    ScriptBlockText|contains:
+    - ‘[System.IO.File]::OpenRead’
+  condition: selection or (selection2 and selection3)
+fields:
+- ""
+falsepositives:
+- No
+level: "high"
