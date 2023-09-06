@@ -1,0 +1,28 @@
+title: “PowerCat Hafnium”
+id: 
+description: "Powercat Hafnium (targeted vulnerable Exchange servers)."
+references:
+-  https://www.microsoft.com/en-us/security/blog/2021/03/02/hafnium-targeting-exchange-servers/
+author: Cyber Panda
+date: 2023/01/15
+tags:
+- attack.initial_access
+- attack.defense_evasion
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+     selection:
+        CommandLine|contains:
+        	- ‘powercat’
+     selection2:
+        ScriptBlockText|contains:
+        	- ‘powercat’
+  condition: selection or selection2
+fields:
+- ""
+falsepositives:
+- None known
+level: "medium"
