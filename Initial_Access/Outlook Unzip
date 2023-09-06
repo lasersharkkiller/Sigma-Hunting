@@ -1,0 +1,67 @@
+title: "Outlook Unzip"
+id: 
+description: "Outlook Unzip"
+references:
+- https://stackoverflow.com/questions/17546016/how-can-you-zip-or-unzip-from-the-script-using-only-windows-built-in-capabiliti
+author: Cyber Panda
+date: 2023/01/19
+tags:
+- attack.initial_access
+- attack.execution
+status: "experimental"
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    ParentImage|contains: 
+    - ‘outlook’
+    Image|contains:
+    - ‘outlook’
+    selection2:
+     CommandLine|contains:  
+      - ‘powershell’ 
+      - 'IO.Compression.ZipFile' 
+      - 'jar' 
+      - ‘Expand-Archive’ 
+      - '7zip' 
+      - 'tar' 
+      - '.vbs' 
+      - 'gzipjs'
+      - ‘compact’
+    selection3:
+     CommandLine|contains:  
+      - '.zip' 
+      - '.7z' 
+      - '.rar' 
+      - '.iso' 
+      - '.img' 
+      - '.gz' 
+    selection4:
+     ScriptBlockText|contains:  
+      - ‘powershell’ 
+      - 'IO.Compression.ZipFile' 
+      - 'jar' 
+      - ‘Expand-Archive’ 
+      - '7zip' 
+      - 'tar' 
+      - '.vbs' 
+      - 'gzipjs'
+      - ‘compact’
+    selection5:
+     ScriptBlockText|contains:  
+      - '.zip' 
+      - '.7z' 
+      - '.rar' 
+      - '.iso' 
+      - '.img' 
+      - '.gz' 
+    selection_filter:
+     CommandLine|contains:  
+      - 'tar.gz' 
+  condition: selection and ((selection2 and selection3) or (selection4 and selection5)) and not selection_filter
+fields:
+- ""
+falsepositives:
+- .tar.gz files being sent by admins
+level: "medium"
