@@ -1,0 +1,25 @@
+title: "LSASS Dump File via Task Manager"
+id: 
+description: "LSASS Dump File via Task Manager"
+references:
+- https://redcanary.com/threat-detection-report/techniques/lsass-memory/
+author: Cyber Panda
+date: 2023/04/03
+tags:
+- attack.privilege_escalation
+- attack.credential_access
+- attack.collection
+status: "experimental"
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    TargetFilename|endswith:
+    - 'lsass.dmp' 
+  condition: selection
+fields:
+- ""
+falsepositives:
+- Administrators or Help Desk troubleshooting
+level: "high"
