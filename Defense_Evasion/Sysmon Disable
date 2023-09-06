@@ -1,0 +1,30 @@
+title: Sysmon Disable
+id:
+status: experimental
+description: Atomic #9 AND #10 - Disable Sysmon
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.defense_evasion
+logsource:
+    category: process_creation
+detection:
+    selection:
+        Image|contains:
+        	- ‘fltmc.exe' 
+            - ‘sysmon.exe'
+     selection2:
+        CommandLine|contains|any:
+        	- ‘unload SysmonDrv' 
+            - ‘-u'
+     selection3:
+        ScriptBlockText|contains:
+        	- ‘unload SysmonDrv' 
+            - ‘-u'
+    condition: selection and (selection2 or selection3)
+falsepositives:
+    - 
+level: medium
