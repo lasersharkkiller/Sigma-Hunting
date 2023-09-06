@@ -1,0 +1,26 @@
+title: “Group Policy Preferences”
+id:
+status: experimental
+description: Detection focuses on sysvol GP Policy xml file enumeration, with findstr or Get-GPPPassword (Alias or CmdScript internal match).
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.credential_access
+logsource:
+    category: process_creation
+detection:
+    selection:
+        CommandLine|contains:
+        	- ‘Get-GPPPassword’
+        	- ‘Get-ChildItem -Path \"\\$Server\SYSVOL\" -Recurse -ErrorAction SilentlyContinue -Include 'Groups.xml','Services.xml','Scheduledtasks.xml','DataSources.xml','Printers.xml','Drives.xml'’
+     selection2:
+        ScriptBlockText|contains:
+        	- ‘Get-GPPPassword’
+        	- ‘Get-ChildItem -Path \"\\$Server\SYSVOL\" -Recurse -ErrorAction SilentlyContinue -Include 'Groups.xml','Services.xml','Scheduledtasks.xml','DataSources.xml','Printers.xml','Drives.xml'’
+    condition: selection or selection2
+falsepositives:
+    - 
+level: medium
