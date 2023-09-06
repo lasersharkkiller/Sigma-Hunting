@@ -1,0 +1,35 @@
+title: "PowerShell Encoding"
+id: 
+description: "PowerShell Encoding"
+references:
+- https://redcanary.com/threat-detection-report/techniques/powershell/ 
+author: Cyber Panda
+date: 2023/01/30
+tags:
+- attack.defense_evasion
+- attack.command_and_control
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+    selection:
+     CommandLine|contains:  
+      - ‘powershell’
+    selection2:
+     CommandLine|contains:  
+      - ‘-e’
+    selection3:
+     CommandLine|contains:  
+      - ‘executionpolicy’
+      - ‘expandproperty’
+      - ‘ASCII’
+      - ‘Nessus’
+      - ‘ExpandProperty’
+      - ‘Nutanix’
+  condition: selection and selection2 and not selection3
+fields:
+- ""
+falsepositives:
+- None known
+level: "medium"
