@@ -1,0 +1,62 @@
+title: Stop-Process (used by Log4Shell)
+id:
+status: experimental
+description: Log4Shell uses Stop-Process in it's Initial actions which only has a couple false positives that I see, so it could be an indicator. It's possible other malware might use this for things such as disabling antivirus or other services that might detect it.
+references: 
+   → https://www.cisa.gov/uscert/ncas/analysis-reports/ar22-203a
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.initial_access
+    - certutil
+logsource:
+    category: process_creation
+detection:
+     selection:
+        CommandLine|contains:
+        	- Stop-Process
+     selection2:
+        ScriptBlockText|contains:
+        	- Stop-Process
+      selection3:
+      	CommandLine|contains:
+      		- Stop-Processing
+      		- MTSOViewer
+      		- lpwinmetro
+      		- \chocolatey\choco.exe
+      		- kdenlive
+      		- InformViewer
+      		- LMISQA.ps1
+      		- ScanDeliveryRestart.ps1
+      		- LenovoBatteryGauge
+      		- NS724Transformations.ps1
+      		- Deploy-Application.ps1
+            - Microsoft Corporation
+      		- NICE Inform Recorder
+      		- NICE - Database Interface Server
+            - Are you sure you want to delete Teams Cache
+      		- function Open-ExcelPackage
+         	- WARNING: To prevent issues with the files this script interacts with already
+         ScriptBlockText|contains:
+      		- Stop-Processing
+      		- MTSOViewer
+      		- lpwinmetro
+      		- \chocolatey\choco.exe
+      		- kdenlive
+      		- InformViewer
+      		- LMISQA.ps1
+      		- ScanDeliveryRestart.ps1
+      		- LenovoBatteryGauge
+      		- NS724Transformations.ps1
+      		- Deploy-Application.ps1
+         	- Microsoft Corporation
+      		- NICE Inform Recorder
+      		- NICE - Database Interface Server
+            - Are you sure you want to delete Teams Cache
+      		- function Open-ExcelPackage
+         	- WARNING: To prevent issues with the files this script interacts with already
+    condition: (selection OR selection2) AND NOT selection3
+falsepositives:
+    - see exceptions
+level: medium
