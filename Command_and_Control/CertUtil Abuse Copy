@@ -1,0 +1,46 @@
+title: CertUtil Abuse Copy
+id:
+status: experimental
+description: Looks for CertUtil abuse with a certutil process and common parameters use by red teamers
+references:
+   → https://www.trendmicro.com/en_us/research/18/j/malware-targeting-brazil-uses-legitimate-windows-components-wmi-and-certutil-as-part-of-its-routine.html  
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.initial_access
+    - attack.defense_evasion
+    - attack.command_and_control
+    - certutil
+logsource:
+    category: process_creation
+detection:
+     selection:
+        CommandLine|contains:
+        	- certutil
+     selection2:
+        CommandLine|contains:
+        	- copy
+        	- cp
+     selection3:
+        ScriptBlockText|contains:
+        	- certutil
+     selection4:
+        ScriptBlockText|contains:
+        	- copy
+        	- cp
+      selection5:
+      	CommandLine|contains:
+      		- DigiCertUtil
+      		- centrifydc/mappers
+      		- APTCertUtility
+      	ScriptBlockText|contains:
+      		- DigiCertUtil
+      		- centrifydc/mappers
+      		- APTCertUtility
+    condition: (selection AND selection2) OR (selection3 AND selection4) AND NOT selection5
+falsepositives:
+- DigiCertUtil
+- Motorola APTCertUtility
+- Jabber XCP (Comms Platform)
+level: medium
