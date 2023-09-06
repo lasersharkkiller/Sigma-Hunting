@@ -1,0 +1,46 @@
+title: "SGID/SUID bit set files"
+id: 
+description: “Looks for attempts to locate files with SGID/SUID bit set."
+references:
+- keyboardcrunch
+author: Cyber Panda
+date: 2023/01/15
+tags:
+- attack.privilege_escalation
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+    selection:
+     CommandLine|contains:  
+      - ‘/find'
+    selection2:
+     CommandLine|contains:  
+      - ‘-perm -4000'
+      - ‘-perm -2000’
+      - ‘-perm 0777’
+      - ‘-perm -222’
+      - ‘-perm -o w’
+      - ‘-perm -o x’
+      - ‘-perm -u=s’
+      - '-perm -g=s'
+    selection3:
+     ScriptBlockText|contains:  
+      - ‘/find'
+    selection4:
+     ScriptBlockText|contains:  
+      - ‘-perm -4000'
+      - ‘-perm -2000’
+      - ‘-perm 0777’
+      - ‘-perm -222’
+      - ‘-perm -o w’
+      - ‘-perm -o x’
+      - ‘-perm -u=s’
+      - '-perm -g=s'
+  condition: (selection and selection2) or (selection3 and selection4)
+fields:
+- ""
+falsepositives:
+- 
+level: "medium"
