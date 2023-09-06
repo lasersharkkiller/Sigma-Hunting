@@ -1,0 +1,28 @@
+title: “Lazagne”
+id:
+status: experimental
+description: Test #1 - LaZagne: LaZagne happens to spawn 3 cmd shells to save security, system and sam RegKeys, and the standard compiled release from github will have the original name artifact of lazagne.exe.manifest within the %temp%_MEI?????\lazagne.exe.manifest location.
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.credential_access
+logsource:
+    category: process_creation
+detection:
+    selection:
+        CommandLine|contains:
+        	- ‘reg.exe save hklm\s"'
+        	- ‘/si pass’
+        	- ‘-pattern password’     
+     selection2:
+        ScriptBlockText|contains:
+        	- ‘reg.exe save hklm\s"'
+        	- ‘/si pass’
+        	- ‘-pattern password’   
+    condition: selection or selection2
+falsepositives:
+    - 
+level: medium
