@@ -1,0 +1,26 @@
+title: IIS Logging Disable (Invoke-Phant0m)
+id:
+status: experimental
+description: Atomic #1 - Disable IIS Logging
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.defense_evasion
+logsource:
+    category: process_creation
+detection:
+    selection:
+        CommandLine|contains:
+        	- 'Invoke-Phant0m'
+        	- ‘$Kernel32::TerminateThread($getThread’
+     selection2:
+        ScriptBlockText|contains:
+        	- 'Invoke-Phant0m'
+        	- ‘$Kernel32::TerminateThread($getThread’
+    condition: selection or selection2
+falsepositives:
+    - 
+level: medium
