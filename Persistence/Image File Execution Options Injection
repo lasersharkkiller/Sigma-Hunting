@@ -1,0 +1,22 @@
+title: Image File Execution Options Injection
+id:
+status: experimental
+description: Detections addition of a debugger process to executables using Image File Execution Options. 
+references:
+   → https://attack.mitre.org/techniques/T1546/012/
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.persistence
+    - Image File Injection
+logsource:
+    category: registry_event
+detection:  
+  selection_registry_1:
+    - 'CurrentVersion\Image File Execution Options'
+    - 'CurrentVersion\SilentProcessExit'
+  condition: selection_registry_1
+falsepositives:
+    - 
+level: medium
