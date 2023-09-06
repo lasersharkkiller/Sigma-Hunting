@@ -1,0 +1,23 @@
+title: "Net Group"
+id: 
+description: "GoAnyWhere Net Enumeration"
+references:
+- https://securityintelligence.com/posts/x-force-prevents-zero-day-from-going-anywhere/
+author: Cyber Panda
+date: 2023/04/03
+tags:
+- attack.collection
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+    - ‘net group’
+  condition: selection
+fields:
+- ""
+falsepositives:
+- net use and net user are used quite commonly; net group does not seem to be
+level: "medium"
