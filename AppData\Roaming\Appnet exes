@@ -1,0 +1,21 @@
+title:  AppData\Roaming\Appnet exes
+id:
+status: experimental
+description: Technique came from analyzing Cybersecurity and Infrastructure Security Agency report 10412261.r2.v1
+references:
+    - Cybersecurity and Infrastructure Security Agency report 10412261.r2.v1
+author: Cyber Panda
+date: 2023/01/05
+modified: 2023/01/05
+tags:
+    - attack.persistence
+logsource:
+    category: file_event
+detection:
+    selection:
+        TargetFilename|contains|all:
+            - C:\Windows\AppData\Roaming\Appnet
+            - .exe
+    condition: selection
+falsepositives:
+level: medium
