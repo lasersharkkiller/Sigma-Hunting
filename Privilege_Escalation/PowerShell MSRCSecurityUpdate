@@ -1,0 +1,25 @@
+title: "PowerShell MSRCSecurityUpdate"
+id: 
+description: "PowerShell MSRCSecurityUpdate"
+references:
+- https://www.techtarget.com/searchwindowsserver/tutorial/How-to-build-a-vulnerability-scanner-with-PowerShell
+https://github.com/Microsoft/MSRC-Microsoft-Security-Updates-API/blob/main/src/README.md
+author: Cyber Panda
+date: 2023/01/26
+tags:
+- attack.privilege_escalation
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+    selection:
+     CommandLine|contains:  
+      - ‘MSRCSecurityUpdate’
+      - ‘Get-Msrc’
+  condition: selection
+fields:
+- ""
+falsepositives:
+- None known
+level: "medium"
