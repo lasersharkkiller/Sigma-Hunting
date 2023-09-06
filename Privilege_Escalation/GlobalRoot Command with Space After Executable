@@ -1,0 +1,27 @@
+title: "GlobalRoot Command with Space After Executable"
+id: 
+description: "GlobalRoot Command with Space After Executable"
+references:
+- https://exploitmonday.blogspot.com/2013_02_17_archive.html
+author: Cyber Panda
+date: 2023/02/01
+tags:
+- attack.initial_access
+- attack.defense_evasion
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|StartsWith:
+    - ‘\\?’
+   selection2:
+    CommandLine|EndsWith:
+    - ‘.exe ’
+  condition: selection and selection2
+fields:
+- ""
+falsepositives:
+- None known
+level: "medium"
