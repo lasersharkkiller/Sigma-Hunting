@@ -1,0 +1,36 @@
+title: "BITS Initial Access"
+id: 
+description: "BITS Initial Access"
+references:
+- https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1197/T1197.md
+author: Cyber Panda
+date: 2023/01/15
+tags:
+- attack.initial_access
+- attack.execution
+- attack.persistence
+- attack.defense_evasion
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+    selection:
+     CommandLine|contains:  
+      - ‘Start-BitsTransfer’
+      - ‘desktopimgdownldr’
+    selection2:
+     CommandLine|contains:  
+      - ‘bitsadmin’ 
+    selection3:
+     CommandLine|contains:  
+      - 'download'
+      - ‘transfer’
+      - ‘create’
+      - ‘addfile’ 
+  condition: selection or (selection2 and selection3)
+fields:
+- ""
+falsepositives:
+- None known
+level: "medium"
