@@ -1,0 +1,27 @@
+title: "Windows Management Instrumentation Event Subscription"
+id: 
+description: “Detect WMI Event Subs using the New-CimInstance cmdlet, through CommandLine and CommandScript indicators."
+references:
+- keyboardcrunch
+author: Cyber Panda
+date: 2023/01/15
+tags:
+- attack.persistence
+- attack.privilege_escalation
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+    selection:
+     CommandLine|contains|all:  
+      - ‘New-CimInstance -Namespace root/subscription'
+    selection2:
+     ScriptBlockText|contains|all:  
+      - ‘New-CimInstance -Namespace root/subscription'
+  condition: selection or selection2
+fields:
+- ""
+falsepositives:
+- 
+level: "medium"
