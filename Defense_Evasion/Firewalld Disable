@@ -1,0 +1,40 @@
+title: Firewalld Disable
+id:
+status: experimental
+description: Both Atomic tests for this technique leverage csc.exe for compilation of code. The below will detect specific compilation of executables as well as dynamic compilation through detection of csc.exe creating executable files (both dll and exe). Filter noise from later portion of query using SrcProcParentName Not In (). *Note I could not easily baseline the second part of the query, it might be worth revisiting
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.defense_evasion
+logsource:
+    category: process_creation
+detection:
+    selection:
+        Image|contains:
+            - 'service'
+            - ‘chkconfig’
+     selection2:
+        CommandLine|contains|any:
+        	- ‘off’
+        	- ‘stop’
+        	- ‘disable
+     selection3:
+        CommandLine|contains|any:
+        	- ‘tables’
+        	- ‘firewalld’
+     selection4:
+        ScriptBlockText|contains:
+        	- ‘off’
+        	- ‘stop’
+        	- ‘disable’
+     selection5:
+        ScriptBlockText|contains:
+        	- ‘tables’
+        	- ‘firewalld’
+    condition: selection and ((selection2 and selection3) or (selection4 and selection5))
+falsepositives:
+    - 
+level: medium
