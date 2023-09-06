@@ -1,0 +1,21 @@
+title: Trust Record Modification via Registry
+id:
+status: experimental
+description:  Alerts on trust record modification within the registry, indicating usage of macros
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.initial_access
+    - certutil
+logsource:
+    category: registry_event
+detection:  
+  selection_registry_1:
+    - TargetObject|contains: 'TrustRecords'
+  condition: selection_registry_1
+falsepositives:
+    - 
+level: medium
