@@ -1,0 +1,31 @@
+title: "PowerShell Keyloggers"
+id: 
+description: "PowerShell Keyloggers"
+references:
+- https://gist.github.com/dasgoll/7ca1c059dd3b3fbc7277
+- https://github.com/EmpireProject/Empire/blob/master/data/module_source/collection/Get-Keystrokes.ps1
+author: Cyber Panda
+date: 2023/04/06
+tags:
+- attack.collection
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ScriptBlockText|contains:
+    - ‘GetKey’
+    - ‘GetAsyncKey’
+    - ‘MapVirtualKey’
+    selection2:
+    ScriptBlockText|contains:
+    - ‘Copyright (C) 2022 Nexthink SA, Switzerland’
+    - ‘GetKeywords’
+  condition: selection and not selection2
+fields:
+- ""
+falsepositives:
+- Nexthink
+- Diagnostic Script
+level: "high"
