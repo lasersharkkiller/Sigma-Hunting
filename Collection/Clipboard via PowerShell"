@@ -1,0 +1,23 @@
+title: "Clipboard via PowerShell"
+id: 
+description: "Clipboard via PowerShell"
+references:
+- https://attack.mitre.org/techniques/T1185/
+author: Cyber Panda
+date: 2023/04/06
+tags:
+- attack.collection
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+    - ‘Get-Clip’
+  condition: selection
+fields:
+- ""
+falsepositives:
+- No
+level: "high"
