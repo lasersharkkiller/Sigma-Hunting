@@ -1,0 +1,27 @@
+title: vCenter 2022 RCE
+id: 
+status: stable
+description: 
+references:
+    - vCenter Unauth RCE: https://www.exploit-db.com/exploits/50056 
+    - vCenter File Upload: https://www.exploit-db.com/exploits/49602 
+author: Cyber Panda
+date: 2023/01/24
+modified: 2023/01/24
+tags:
+    - attack.execution
+    - attack.t1071.001
+logsource:
+    category: proxy
+detection:
+    selection:
+        c-useragent|contains:
+            - ‘vmware-vsphere-ui’
+            - ‘vropspluginui’
+            - ‘uploadova’
+    condition: selection
+fields:
+    - c-useragent
+falsepositives:
+    - Unknown
+level: medium
