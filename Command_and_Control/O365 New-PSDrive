@@ -1,0 +1,24 @@
+title: “O365 New-PSDrive”
+id:
+status: experimental
+description: 
+references:
+   → https://www.blackhat.com/docs/us-17/wednesday/us-17-Dods-Infecting-The-Enterprise-Abusing-Office365-Powershell-For-Covert-C2.pdf
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.command_and_control
+logsource:
+    category: process_creation
+detection:
+     selection:
+        CommandLine|contains|all:
+        	- ‘New-PSDrive’
+     selection2:
+        ScriptBlockText|contains|all:
+        	- ‘New-PSDrive’
+    condition: selection or selection2
+falsepositives:
+    - 
+level: medium
