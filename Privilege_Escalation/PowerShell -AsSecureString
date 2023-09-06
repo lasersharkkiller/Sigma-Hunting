@@ -1,0 +1,27 @@
+title: "PowerShell -AsSecureString"
+id: 
+description: “$Password = Read-Host -AsSecureString; New-LocalUser "local_admin" -Password $Password -FullName "Local Administrator" -Description "Built-In account"
+; Add-LocalGroupMember -Group "Administrators" -Member "local_admin""
+references:
+- https://seguridadcyber.com/miscosaswysiwyg2/testing.ps1
+author: Cyber Panda
+date: 2023/01/15
+tags:
+- attack.privilege_escalation
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+    selection:
+     CommandLine|contains|all:  
+      - ‘-AsSecureString'
+    selection2:
+     ScriptBlockText|contains|all:  
+      - ‘-AsSecureString'
+  condition: selection or selection2
+fields:
+- ""
+falsepositives:
+- 
+level: "medium"
