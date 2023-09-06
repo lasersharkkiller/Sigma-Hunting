@@ -1,0 +1,35 @@
+title: Syslog Disable
+id:
+status: experimental
+description: Atomic #1 - Disable Syslog
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.defense_evasion
+logsource:
+    category: process_creation
+detection:
+    selection:
+        Image|contains:
+        	- ‘chkconfig' 
+            - ‘systemctl'
+            - ‘service’
+     selection2:
+        CommandLine|contains|any:
+        	- ‘rsyslog stop' 
+            - ‘off rsyslog'
+            - ‘stop rsyslog’
+            - ‘disable rsyslog’
+     selection3:
+        ScriptBlockText|contains:
+        	- ‘rsyslog stop' 
+            - ‘off rsyslog'
+            - ‘stop rsyslog’
+            - ‘disable rsyslog’
+    condition: selection and (selection2 or selection3)
+falsepositives:
+    - 
+level: medium
