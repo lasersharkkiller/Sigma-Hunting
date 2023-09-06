@@ -1,0 +1,26 @@
+title: "Exfil Smuggled in Packet Headers"
+id: 
+description: "Exfil Smuggled in Packet Headers"
+references:
+- https://niiconsulting.com/checkmate/2016/03/exfiltration-using-powershell-outlook/
+author: Cyber Panda
+date: 2023/04/07
+tags:
+- attack.command_and_control
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains|all:
+    - ‘scapy’
+  selection2:
+    ScriptBlockText|contains|all:
+    - ‘scapy’
+  condition: selection or selection2
+fields:
+- ""
+falsepositives:
+- No
+level: "high"
