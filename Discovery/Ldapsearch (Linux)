@@ -1,0 +1,37 @@
+title: “Ldapsearch (Linux)”
+id: 
+description: “Detects use of ldapsearch"
+references:
+- Malware Analysis Report (AR22-270A): https://www.cisa.gov/uscert/ncas/analysis-reports/ar22-270a
+author: Cyber Panda
+date: 2023/01/15
+tags:
+- attack.privilege_escalation
+- attack.discovery
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+    selection:
+     CommandLine|contains:  
+      - ‘ldapsearch'
+    selection2:
+     ScriptBlockText|contains:  
+      - ‘ldapsearch'
+    selection3:
+     CommandLine|contains:  
+      - ‘centrify'
+    selection4:
+     ScriptBlockText|contains:  
+      - ‘centrify'
+    selection5:
+     Image|contains:  
+      - ‘splunkd'
+  condition: (selection or selection2) AND NOT (selection3 or selection4 or selection5)
+fields:
+- ""
+falsepositives:
+- centrify
+- splunkd
+level: "medium"
