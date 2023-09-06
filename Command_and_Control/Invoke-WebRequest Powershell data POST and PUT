@@ -1,0 +1,38 @@
+title: “Invoke-WebRequest Powershell data POST and PUT ”
+id:
+status: experimental
+description: 
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.command_and_control
+logsource:
+    category: process_creation
+detection:
+     selection:
+        CommandLine|contains:
+        	- 'Invoke-WebRequest'
+     selection2:
+        CommandLine|contains:
+        	- '-Method Put'
+        	- '-Method Post'
+     selection3:
+        CommandLine|contains:
+        	- 'slackb.com'
+     selection4:
+        ScriptBlockText|contains:
+        	- 'Invoke-WebRequest'
+     selection5:
+        ScriptBlockText|contains:
+        	- '-Method Put'
+        	- '-Method Post'
+     selection6:
+        ScriptBlockText|contains:
+        	- 'slackb.com'
+    condition: (selection and selection2 and NOT selection3) OR (selection4 and selection5 and NOT selection6)
+falsepositives:
+    - 
+level: medium
