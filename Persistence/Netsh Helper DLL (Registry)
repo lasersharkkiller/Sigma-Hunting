@@ -1,0 +1,22 @@
+title: Netsh Helper DLL (Registry)
+id:
+status: experimental
+description: Detection of "helper" dlls with network command shell, through command arguments or registry modification.
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+- attack.persistence
+- attack.privilege_escalation
+- attack.defense_evasion
+logsource:
+    category: registry_event
+detection:  
+  selection_registry_1:
+    - ‘SOFTWARE\Microsoft\NetSh’
+  condition: selection_registry_1
+falsepositives:
+    - 
+level: medium
