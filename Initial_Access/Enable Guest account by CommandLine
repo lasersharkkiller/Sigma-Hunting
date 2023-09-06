@@ -1,0 +1,36 @@
+title: Enable Guest account by CommandLine
+id:
+status: experimental
+description: Detects enabling of Guest account, adding Guest account to groups changes.
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.initial_access
+    - atttack.defense_evasion
+logsource:
+    category: process_creation
+detection:
+     selection:
+        CommandLine|contains:
+        	- net localgroup
+     selection2:
+        CommandLine|contains:
+        	- guest /add
+        	- /active:yes
+     selection3:
+        ScriptBlockText|contains:
+        	- net localgroup
+     selection4:
+        ScriptBlockText|contains:
+        	- guest /add
+        	- /active:yes
+      selection5:
+      	Image|contains:
+      		- pwdspy
+    condition: ((selection AND selection2) OR (selection3 AND selection4)) AND NOT selection5
+falsepositives:
+    - pwdspy
+level: medium
