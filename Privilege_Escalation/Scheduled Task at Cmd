@@ -1,0 +1,26 @@
+title: "Scheduled Task at Cmd"
+id: 
+description: "AT Scheduled Task"
+references:
+- https://www.ired.team/offensive-security/persistence/t1209-hijacking-time-providers
+- https://learn.microsoft.com/en-us/troubleshoot/windows-client/system-management-components/use-at-command-to-schedule-tasks
+author: Cyber Panda
+date: 2023/04/05
+tags:
+- attack.persistence
+- attack.privilege_escalation
+- attack.command_and_control
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+    - ‘at \\’
+  condition: selection 
+fields:
+- ""
+falsepositives:
+- 
+level: "high"
