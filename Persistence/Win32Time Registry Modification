@@ -1,0 +1,21 @@
+title: Win32Time Registry Modification
+id: 
+status: experimental
+description: Modify the HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\W32Time\TimeProviders value
+references:
+    - https://www.ired.team/offensive-security/persistence/t1209-hijacking-time-providers
+author: Cyber Panda
+date: 2023/04/05
+tags:
+    - attack.persistence
+logsource:
+  category: registry_event
+  product: windows
+detection:
+  selection:
+    - TargetObject|contains: 'Services\W32Time\TimeProviders\NtpClient\DllName'
+    - TargetObject|contains: 'Services\W32Time\TimeProviders\NtpServer\DllName'
+    - TargetObject|contains: 'Services\W32Time\TimeProviders\VMICTimeProvider\DllName'
+  condition: selection
+falsepositives:
+level: medium
