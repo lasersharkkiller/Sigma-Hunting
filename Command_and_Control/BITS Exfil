@@ -1,0 +1,27 @@
+title: "BITS Exfil"
+id: 
+description: "BITS Exfil"
+references:
+- https://github.com/tango-j/Awsome-Data-exfil
+author: Cyber Panda
+date: 2023/04/07
+tags:
+- attack.command_and_control
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains:
+    - ‘BITSAdmin’
+  selection2:
+    CommandLine|contains:
+    - ‘upload’
+    - ‘transfer’
+  condition: selection and selection2
+fields:
+- ""
+falsepositives:
+- No
+level: "high"
