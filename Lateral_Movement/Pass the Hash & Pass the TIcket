@@ -1,4 +1,4 @@
-title: “Pass the Hash & Pass the TIcket”
+title: “Pass the Hash & Pass the Ticket”
 id:
 status: experimental
 description: Here we're focusing on detecting command line arguments of Mimikatz, so binary and powershell mimikatz will be detected assuming arguments haven't been modified before deployment.
