@@ -1,0 +1,19 @@
+title: User Logon Script Registry Entry
+id: 
+status: experimental
+description: User Logon Script Registry Entry
+references:
+    - https://attack.mitre.org/tactics/TA0003/
+author: Cyber Panda
+date: 2023/04/05
+tags:
+    - attack.persistence
+logsource:
+  category: registry_event
+  product: windows
+detection:
+  selection:
+    - TargetObject|contains: 'UserInitMprLogonScript'
+  condition: selection
+falsepositives:
+level: high
