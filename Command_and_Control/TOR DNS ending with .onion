@@ -1,0 +1,21 @@
+title: “TOR DNS ending with .onion”
+id:
+status: experimental
+description: 
+references:
+   → https://www.bleepingcomputer.com/news/security/winnti-hackers-split-cobalt-strike-into-154-pieces-to-evade-detection/
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.command_and_control
+logsource:
+    category: proxy
+detection:
+     selection:
+        cs-host|endswith:
+        	- '.onion'
+    condition: selection
+falsepositives:
+    - 
+level: medium
