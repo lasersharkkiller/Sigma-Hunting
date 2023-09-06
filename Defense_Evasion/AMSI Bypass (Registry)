@@ -1,0 +1,20 @@
+title: AMSI Bypass (Registry)
+id:
+status: experimental
+description: Atomic #12 - AMSI Bypass - Remove AMSI Provider Reg Key
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+- attack.defense_evasion
+logsource:
+    category: registry_event
+detection:  
+  selection_registry_1:
+    - ‘\Microsoft\AMSI\Providers’
+  condition: selection_registry_1
+falsepositives:
+    - 
+level: medium
