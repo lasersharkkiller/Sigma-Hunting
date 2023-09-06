@@ -1,0 +1,30 @@
+title: "MSDT Abuse"
+id: 
+description: "Diagnostic TroubleShooting Wizard Abuse"
+references:
+- https://www.cybereason.com/blog/threat-alert-follina/msdt-microsoft-office-vulnerability
+author: Cyber Panda
+date: 2023/01/21
+tags:
+- attack.initial_access
+- attack.defense_evasion
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ParentImage|contains:
+    - ‘word’
+    - ‘excel’
+    - ‘powerpoint’
+    - ‘outlook’
+   selection2:
+    Image|contains:
+    - ‘msdt.exe’
+  condition: selection and selection2
+fields:
+- ""
+falsepositives:
+- None known
+level: "medium"
