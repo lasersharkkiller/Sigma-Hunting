@@ -1,0 +1,30 @@
+title: "Netsh Helper DLL (Cmd)"
+id: 
+description: Detection of "helper" dlls with network command shell, through command arguments or registry modification.
+references:
+- keyboardcrunch
+author: Cyber Panda
+date: 2023/01/15
+tags:
+- attack.persistence
+- attack.privilege_escalation
+- attack.defense_evasion
+logsource:
+  category: process_creation
+  product: windows
+detection:
+    selection:
+     Image|EndsWith:  
+      - ‘netsh.exe
+     selection2:
+      CommandLine|contains:  
+      - ‘add helper
+    selection3:
+     ScriptBlockText|contains:  
+      - ‘add helper'
+  condition: selection and (selection2 or selection3)
+fields:
+- ""
+falsepositives:
+- 
+level: "medium"
