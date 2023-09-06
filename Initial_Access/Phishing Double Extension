@@ -1,0 +1,43 @@
+title: "Phishing Double Extension"
+id: 
+description: "Phishing Double Extension"
+references:
+- https://
+author: Cyber Panda
+date: 2023/01/19
+tags:
+- attack.initial_access
+- attack.execution
+status: "experimental"
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    ParentImage|contains: 
+    - ‘outlook’
+    Image|contains:
+    - ‘outlook’
+    selection2:
+     TargetFileName|contains:  
+      - ‘.doc.’ 
+      - '.docx.' 
+      - '.xls.' 
+      - ‘.xlsx.’ 
+      - ‘.ppt.’ 
+      - '.pptx.' 
+      - '.pdf.' 
+     selection3:
+      TargetFileName|endswith:  
+      - ‘.exe’ 
+      - '.lnk' 
+      - '.hta' 
+      - ‘.scr’ 
+      - ‘.img’ 
+      - '.iso'
+  condition: selection and selection2 and selection3
+fields:
+- ""
+falsepositives:
+- None known
+level: "medium"
