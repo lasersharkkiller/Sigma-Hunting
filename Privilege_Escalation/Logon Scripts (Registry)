@@ -1,0 +1,20 @@
+title: Logon Scripts (Registry)
+id:
+status: experimental
+description: Detects addition of logon scripts through command line or registry methods. 
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.persistence
+logsource:
+    category: registry_event
+detection:  
+  selection_registry_1:
+    - ‘UserInitMprLogonScript’
+  condition: selection_registry_1
+falsepositives:
+    - 
+level: medium
