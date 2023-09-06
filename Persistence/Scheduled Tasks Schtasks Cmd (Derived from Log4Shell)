@@ -1,0 +1,44 @@
+title: Scheduled Tasks Schtasks Cmd (Derived from Log4Shell)
+id:  
+status: experimental
+description: 
+references:
+- https://www.cisa.gov/uscert/ncas/analysis-reports/ar22-203a
+author: Cyber Panda
+date: 2023/01/11
+tags:
+- attack.persistence
+- attack.privilege_escalation
+- attack.command_and_control
+logsource:
+category: process_creation
+product: windows
+detection:
+selection:
+CommandLine|contains|all:
+- schtasks
+- create
+selection_file_type
+CommandLine|contains:
+- .ps1
+- .zip
+- nmap
+selection2:
+ScriptBlockText|contains|all:
+- schtasks
+- create
+selection2_file_type
+ScriptBlockText|contains:
+- .ps1
+- .zip
+- nmap
+selection_filter
+CommandLine|contains:
+- iMController\Plugins\LenovoBatteryGaugePackage
+condition: (selection and selection_file_type) or (selection2 and selection2_file_type) and not selection_filter
+fields:
+falsepositives:
+- Lenovo Battery Gauge
+- ManageEngine OpManager
+- Jenkins
+level: medium
