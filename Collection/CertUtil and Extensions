@@ -1,0 +1,29 @@
+title: "CertUtil and Extensions"
+id: 
+description: "GoAnyWhere CertUtil and Extensions"
+references:
+- https://securityintelligence.com/posts/x-force-prevents-zero-day-from-going-anywhere/
+author: Cyber Panda
+date: 2023/04/03
+tags:
+- attack.initial_access
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|contains:
+    - ‘certutil'
+   selection2:
+    CommandLine|EndsWith:
+    - ‘.dll’
+       selection3:
+    CommandLine|EndsWith:
+    - ‘.exe’
+  condition: selection and (selection2 or selection3)
+fields:
+- ""
+falsepositives:
+- 
+level: "medium"
