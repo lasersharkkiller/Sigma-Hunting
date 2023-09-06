@@ -1,0 +1,28 @@
+title: "LSASS SQLDumper"
+id: 
+description: "LSASS SQLDumper"
+references:
+- https://redcanary.com/threat-detection-report/techniques/lsass-memory/
+author: Cyber Panda
+date: 2023/04/03
+tags:
+- attack.privilege_escalation
+- attack.credential_access
+- attack.collection
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|contains:
+    - ‘sqldumper’
+  condition: selection
+fields:
+- ""
+falsepositives:
+- 
+level: "medium"
+---
+~
+---
