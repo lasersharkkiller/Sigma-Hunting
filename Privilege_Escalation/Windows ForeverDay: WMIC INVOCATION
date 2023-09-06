@@ -1,0 +1,22 @@
+title: "Windows ForeverDay: WMIC INVOCATION"
+id: 
+description: "Windows ForeverDay: WMIC INVOCATION"
+references:
+- https://exploitmonday.blogspot.com/2013_02_17_archive.html
+author: Cyber Panda
+date: 2023/01/31
+tags:
+- attack.privilege_escalation
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+    selection:
+     CommandLine|contains:  
+      - ‘wmic process call create’
+    selection2:
+     CommandLine|contains:  
+      - ‘~’
+  condition: selection and selection2
+fields:
