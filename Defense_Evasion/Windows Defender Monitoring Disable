@@ -1,0 +1,29 @@
+title: Windows Defender Monitoring Disable
+id:
+status: experimental
+description: Technique came from analyzing Cybersecurity and Infrastructure Security Agency (CISA) report 10412261.r2.v1 ***NOTE might NEED TO translate Image to PUBLISHER CERT
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.defense_evasion
+logsource:
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - 'PHAROS SYSTEMS INTERNATIONAL, INC'
+            - 'OPEN TEXT CORPORATION'
+            - ‘svchost.exe’
+     selection2:
+        CommandLine|contains:
+        	- Set-MpPreference -DisableRealtimeMonitoring
+     selection3:
+        ScriptBlockText|contains:
+        	- Set-MpPreference -DisableRealtimeMonitoring
+    condition: (selection2 or selection3) AND NOT selection
+falsepositives:
+    - 
+level: medium
