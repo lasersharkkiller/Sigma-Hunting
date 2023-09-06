@@ -1,0 +1,29 @@
+title: Event Log Clear (Clear-EventLog)
+id:
+status: experimental
+description: Detects the clearing of EventLogs through wevtutil (concise) as well as Clear-EventLog through CommandLine and CommandScript objects. Powershell cmdlet detection returns a lot of noise for the CommandScripts object, so filtering out SrcProcParentName may be required. *Note I had to take out the script part.
+references:
+   → keyboardcrunch
+author: Cyber Panda
+date: 2023/07/27
+modified: 2023/07/27
+tags:
+    - attack.defense_evasion
+logsource:
+    category: process_creation
+detection:
+    selection:
+        Image|endswith:
+            - 'WmiPrvSE.exe'
+            - 'PFERemediation.exe'
+            - ‘svchost.exe’
+     selection2:
+        CommandLine|contains:
+        	- Clear-EventLog
+     selection3:
+        ScriptBlockText|contains:
+        	- Clear-EventLog
+    condition: (selection2 or selection3) AND NOT selection
+falsepositives:
+    - 
+level: medium
