@@ -1,0 +1,23 @@
+title: Windows Anti-Forensics Through Registry
+id: 
+status: experimental
+description: Attackers can use the registry to conduct anti-forensics
+references:
+    - https://attack.mitre.org/techniques/T1562/002/
+    - https://superuser.com/questions/979888/disable-windows-powershell-event-logging
+author: Cyber Panda
+date: 2023/01/08
+tags:
+    - attack.initial_access
+    - attack.defense_evasion
+logsource:
+  category: registry_event
+  product: windows
+detection:
+  selection_registry:
+    - TargetObject|contains: 'SYSTEM\CurrentControlSet\Control\MiniNT'
+    - TargetObject|contains: ‘SYSTEM\CurrentControlSet\Services\EventLog\Windows PowerShell'
+  condition: one of selection_registry
+falsepositives:
+    - 
+level: medium
