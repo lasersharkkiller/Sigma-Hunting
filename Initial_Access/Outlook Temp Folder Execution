@@ -1,0 +1,27 @@
+title: "Outlook Temp Folder Execution
+id: 
+description: "Outlook Temp Folder Execution"
+references:
+- 
+author: Cyber Panda
+date: 2023/01/15
+tags:
+- attack.initial_access
+- attack.defense_evasion
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|contains:
+    - ‘Temporary Internet Files
+   selection2:
+    Image|contains:
+    - ‘Content.Outlook’
+  condition: selection and selection2
+fields:
+- ""
+falsepositives:
+- None known
+level: "medium"
