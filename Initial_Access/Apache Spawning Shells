@@ -1,0 +1,32 @@
+title: "Apache Spawning Shells"
+id: 
+description: "Shells spawned from Apache"
+references:
+- 
+author: Cyber Panda
+date: 2023/10/02
+tags:
+- attack.initial_access
+- t1190
+status: "experimental"
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ParentImage|contains:
+    - ‘httpd.exe’
+   selection2:
+    Image|contains:
+    - ‘cmd.exe’
+    - ‘powershell.exe’
+    - ‘pwsh.exe’
+    selection_filter:
+     CommandLine|contains:
+    - ‘none’
+  condition: selection and selection2 and not selection_filter
+fields:
+- ""
+falsepositives:
+- None known
+level: "medium"
